@@ -5,6 +5,7 @@ resources:
   - aquasecurity-charts.yaml
   - bitnami-charts.yaml
   - bjw-s.yaml
+  - calico.yaml
   - csi-driver-nfs-charts.yaml
   - datahub-charts.yaml
   - descheduler-charts.yaml
