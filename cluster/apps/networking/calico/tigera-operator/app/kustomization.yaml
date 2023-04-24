@@ -5,4 +5,4 @@ kind: Kustomization
 namespace: tigera-operator
 resources:
   # - ./configmap.yaml
-  - ./helmrelease.yaml
+  - ./helm-release.yaml
