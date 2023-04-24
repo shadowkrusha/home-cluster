@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nzbhydra2
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: nzbhydra2
+      version: 10.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: linuxserver/nzbhydra2
+      tag: 5.1.8
+    probes:
+      liveness:
+        spec:
+          httpGet:
+            path: /actuator/health/ping
+      readiness:
+        spec:
+          httpGet:
+            path: /actuator/health/ping
+      startup:
+        spec:
+          httpGet:
+            path: /actuator/health/ping
+    env:
+      TZ: Australia/Perth
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: &host "nzbhydra2.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "nzbhydra2-${SECRET_DOMAIN//./-}-tls"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: nzbhydra2-conf
+        mountPath: /config
+      downloads:
+        enabled: true
+        existingClaim: nzbhydra2-downloads
+        mountPath: /downloads
