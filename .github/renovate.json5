@@ -1,0 +1,91 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "docker:enableMajor",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":automergeDigest",
+    ":automergeBranch",
+    "github>shadowkrusha/k3s-home//.github/renovate/allowedVersions.json5",
+    "github>shadowkrusha/k3s-home//.github/renovate/autoMerge.json5",
+    "github>shadowkrusha/k3s-home//.github/renovate/commitMessage.json5",
+    "github>shadowkrusha/k3s-home//.github/renovate/groups.json5",
+    "github>shadowkrusha/k3s-home//.github/renovate/labels.json5",
+    "github>shadowkrusha/k3s-home//.github/renovate/semanticCommits.json5",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "platform": "github",
+  "onboarding": false,
+  "requireConfig": "optional",
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "suppressNotifications": ["prIgnoreNotification"],
+  "rebaseWhen": "conflicted",
+  // "schedule": [
+  //   "every weekend"
+  // ],
+  // set up ignored deps
+  "ignoreDeps": [
+    "ghcr.io/fluxcd/helm-controller",
+    "ghcr.io/fluxcd/image-automation-controller",
+    "ghcr.io/fluxcd/image-reflector-controller",
+    "ghcr.io/fluxcd/kustomize-controller",
+    "ghcr.io/fluxcd/notification-controller",
+    "ghcr.io/fluxcd/source-controller"
+  ],
+  "pre-commit": {
+    "enabled": true
+  },
+  "flux": {
+    "fileMatch": [
+      "cluster/.+\\.ya?ml$"
+    ]
+  },
+  "helm-values": {
+    "fileMatch": [
+      "cluster/.+\\.ya?ml$"
+    ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "cluster/.+\\.ya?ml$"
+    ]
+  },
+  "regexManagers": [
+    // regexManager to read and process HelmRelease files
+    {
+      "fileMatch": [
+        "cluster/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        // helm releases
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process cert-manager CRD's
+    // {
+    //   "fileMatch": [
+    //     "cluster/crds/cert-manager/.+\\.ya?ml$"
+    //   ],
+    //   "matchStrings": [
+    //     "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
+    //   ],
+    //   "datasourceTemplate": "helm"
+    // },
+    // regexManager to read and process Traefik CRD's
+    {
+      "fileMatch": [
+        "cluster/crds/traefik/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: v(?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    }
+  ],
+  "packageRules": [
+
+  ]
+}
