@@ -1,0 +1,6 @@
+---
+kind: Kustomization
+resources:
+  - helm-release.yaml
+  - tls-store
+  - dashboard
