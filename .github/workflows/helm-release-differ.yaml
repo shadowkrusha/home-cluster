@@ -7,7 +7,7 @@ on:
     paths: ["cluster/**/helm-release.yaml"]
 
 env:
-  BOT_USERNAME: renovate[bot]
+  BOT_USERNAME: github-actions[bot]
   KUBERNETES_DIR: cluster/
 
 jobs:
