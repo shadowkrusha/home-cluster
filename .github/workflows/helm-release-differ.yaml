@@ -7,7 +7,7 @@ on:
     paths: ["cluster/**/helm-release.yaml"]
 
 env:
-  BOT_USERNAME: Iains Github BOT
+  BOT_USERNAME: renovate[bot]
   KUBERNETES_DIR: cluster/
 
 jobs:
@@ -92,13 +92,13 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: ${{ env.BOT_USERNAME }}
           body-includes: ${{ matrix.file }}
-          token: ${{ steps.generate-token.outputs.token }}
+          token: "${{ steps.generate-token.outputs.token }}"
 
       - name: Create or update comment
         if: ${{ always() && steps.diff.outputs.diff != '' }}
         uses: peter-evans/create-or-update-comment@3383acd359705b10cb1eeef05c0e88c056ea4666 # v3.0.0
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: "${{ steps.generate-token.outputs.token }}"
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
