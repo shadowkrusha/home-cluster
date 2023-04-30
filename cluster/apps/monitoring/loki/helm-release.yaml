@@ -17,13 +17,13 @@ spec:
         namespace: flux-system
   maxHistory: 3
   install:
-    disableWait: true
+    # disableWait: true
     createNamespace: true
     crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
-    disableWait: true
+    # disableWait: true
     crds: CreateReplace
     cleanupOnFail: true
     remediation:
@@ -67,16 +67,16 @@ spec:
       persistence:
         storageClass: local-path
       extraVolumeMounts:
-        - name: rules
-          mountPath: /rules/fake
+        # - name: rules
+        #   mountPath: /rules/fake
         - name: scratch
           mountPath: /tmp/scratch
-      # extraVolumes:
-      #   - name: rules
-      #     configMap:
-      #       name: loki-alerting-rules
-      #   - name: scratch
-      #     emptyDir: {}
+      extraVolumes:
+        # - name: rules
+        #   configMap:
+        #     name: loki-alerting-rules
+        - name: scratch
+          emptyDir: {}
     monitoring:
       serviceMonitor:
         enabled: false
