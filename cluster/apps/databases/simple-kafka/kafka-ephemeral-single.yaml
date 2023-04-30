@@ -1,0 +1,59 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: ephemeral-cluster
+  namespace: kafka
+spec:
+  kafka:
+    version: 3.3.2
+    replicas: 1
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+      - name: external
+        port: 9094
+        type: nodeport
+        tls: true
+        authentication:
+          type: tls
+        configuration:
+          bootstrap:
+            nodePort: 31100
+          brokers:
+            - broker: 0
+              nodePort: 31000
+          brokerCertChainAndKey:
+            secretName: kafka-ephemeral-single-net-tls
+            certificate: tls.crt
+            key: tls.key
+    authorization:
+      type: simple
+    config:
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
+      default.replication.factor: 1
+      min.insync.replicas: 1
+      inter.broker.protocol.version: "3.3"
+    storage:
+      type: ephemeral
+    resources:
+      requests:
+        memory: 256Mi
+      limits:
+        memory: 512Mi
+  zookeeper:
+    replicas: 3
+    storage:
+      type: ephemeral
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
