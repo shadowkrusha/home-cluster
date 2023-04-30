@@ -7,4 +7,4 @@ resources:
   # - calibre-web
   # - readarr
   # - sabnzbd
-  # - youtubedl
+  - youtubedl
