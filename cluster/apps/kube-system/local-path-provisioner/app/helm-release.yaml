@@ -35,6 +35,8 @@ spec:
     nodePathMap:
       - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
         paths: ["/var/lib/rancher/k3s/storage"]
+      - node: k3s-worker03
+        paths: ["/data/pvcs"]
     # Note: Do not enable Flux variable substitution on this HelmRelease
     configmap:
       setup: |-
