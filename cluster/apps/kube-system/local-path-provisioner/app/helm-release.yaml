@@ -37,6 +37,8 @@ spec:
         paths: ["/var/lib/rancher/k3s/storage"]
       - node: k3s-worker03
         paths: ["/data/pvcs"]
+      - node: k3s-worker04
+        paths: ["/data/pvcs"]
     # Note: Do not enable Flux variable substitution on this HelmRelease
     configmap:
       setup: |-
