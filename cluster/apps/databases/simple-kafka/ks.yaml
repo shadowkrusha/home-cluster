@@ -1,0 +1,37 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-simple-kafka-certificate
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/databases/simple-kafka/certificate
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: kafka-operator
+      namespace: kafka
+  interval: 15m
+  retryInterval: 1m
+  timeout: 3m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-simple-kafka
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-simple-kafka-certificate
+  path: ./cluster/apps/databases/simple-kafka/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 15m
+  retryInterval: 1m
+  timeout: 3m

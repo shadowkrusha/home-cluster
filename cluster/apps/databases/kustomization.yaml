@@ -6,4 +6,4 @@ resources:
   - kafka-operator
   # - neo4j
   - redis
-  - simple-kafka
+  - simple-kafka/ks.yaml
