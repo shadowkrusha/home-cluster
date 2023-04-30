@@ -15,6 +15,19 @@ spec:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     gateway:
       replicas: 1
