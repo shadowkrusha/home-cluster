@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rpc-clone
+  namespace: wordpress
+spec:
+  chart:
+    spec:
+      # https://groundhog2k.github.io/helm-charts/
+      chart: wordpress
+      version: 0.8.1
+      sourceRef:
+        kind: HelmRepository
+        name: groundhog2k-charts
+        namespace: flux-system
+      interval: 5m
+  interval: 1m0s
+  values:
+    env:
+      - name: TZ
+        value: "Australia/Perth"
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+    ingress:
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      enabled: true
+      hosts:
+        - host: &host wordpress.shadowkrusha.net
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+          secretName: "wordpress-${SECRET_DOMAIN//./-}-tls"
+
+    mariadb:
+      enabled: true
+      userDatabase:
+        name: wordpress
+      storage:
+        persistentVolumeClaimName: database-data
+
+    storage:
+      persistentVolumeClaimName: wordpress-data
+
+  valuesFrom:
+    - targetPath: mariadb.settings.rootPassword
+      kind: Secret
+      name: database-secrets
+      valuesKey: root-password
+    - targetPath: mariadb.userDatabase.user
+      kind: Secret
+      name: database-secrets
+      valuesKey: wordpress-username
+    - targetPath: mariadb.userDatabase.password
+      kind: Secret
+      name: database-secrets
+      valuesKey: wordpress-password
