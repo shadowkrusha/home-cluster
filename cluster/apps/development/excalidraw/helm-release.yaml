@@ -32,7 +32,7 @@ spec:
     image:
       # https://github.com/excalidraw/excalidraw/pull/6143
       repository: shadowkrusha/excalidraw
-      tag: latest
+      tag: 6977c326
     service:
       main:
         ports:
