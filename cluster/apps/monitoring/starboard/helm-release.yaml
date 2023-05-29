@@ -23,6 +23,8 @@ spec:
   values:
     trivy:
       ignoreUnfixed: true
+    trivyOperator:
+      scanJobCompressLogs: false
 
     env:
       - name: TZ
