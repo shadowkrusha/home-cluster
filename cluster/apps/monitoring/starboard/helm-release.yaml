@@ -25,7 +25,7 @@ spec:
       ignoreUnfixed: true
 
     trivyOperator:
-      scanJobCompressLogs: true
+      scanJobCompressLogs: false
 
     operator:
       scanJobsConcurrentLimit: 10
