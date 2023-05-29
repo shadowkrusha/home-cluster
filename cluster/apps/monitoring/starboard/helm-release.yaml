@@ -23,8 +23,12 @@ spec:
   values:
     trivy:
       ignoreUnfixed: true
+
     trivyOperator:
       scanJobCompressLogs: false
+
+    operator:
+      scanJobsConcurrentLimit: 2
 
     env:
       - name: TZ
