@@ -28,7 +28,7 @@ spec:
       scanJobCompressLogs: false
 
     operator:
-      scanJobsConcurrentLimit: 10
+      scanJobsConcurrentLimit: 4
 
     env:
       - name: TZ
