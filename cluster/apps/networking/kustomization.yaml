@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./adguard
-  - ./calico
+    #- ./calico
   - ./metallb/ks.yaml
   - ./traefik/ks.yaml
