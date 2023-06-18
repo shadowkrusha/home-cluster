@@ -5,3 +5,4 @@ resources:
   - csi-driver-nfs
   - ./local-path-provisioner/ks.yaml
   - metrics-server
+  - vault

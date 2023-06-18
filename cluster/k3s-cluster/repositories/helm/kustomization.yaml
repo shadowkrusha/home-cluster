@@ -12,6 +12,7 @@ resources:
   - external-dns-charts.yaml
   - grafana-charts.yaml
   - groundhog2k-charts.yaml
+  - hashicorp-charts.yaml
   - influxdata-charts.yaml
   - ingress-nginx-charts.yaml
   - jetstack-charts.yaml
