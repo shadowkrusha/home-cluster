@@ -39,3 +39,9 @@ spec:
           - hosts:
               - *host
             secretName: "vault-${SECRET_DOMAIN//./-}-tls"
+
+      service:
+        type: ClusterIP
+        port: 8200
+        externalPort: 80
+        clusterPort: 8201
