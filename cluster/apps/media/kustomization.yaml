@@ -6,5 +6,5 @@ resources:
   - nzbhydra2
   # - calibre-web
   # - readarr
-  # - sabnzbd
+  - sabnzbd
   - youtubedl
