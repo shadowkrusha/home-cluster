@@ -55,7 +55,7 @@ spec:
             Julia."
           display_name: Datascience environment
           kubespawner_override:
-            image: shadowkrusha/scipy-notebook:f16d1e3a935a
+            image: ghcr.io/shadowkrusha/scipy:sha-3d2b798
         - description: The Jupyter Stacks spark image!
           display_name: Spark environment
           kubespawner_override:
