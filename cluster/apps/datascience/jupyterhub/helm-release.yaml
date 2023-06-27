@@ -51,11 +51,16 @@ spec:
           description: "To avoid too much bells and whistles: Python."
           display_name: Minimal environment
         - description:
+            "If you want scipy."
+          display_name: Scipy environment
+          kubespawner_override:
+            image: ghcr.io/shadowkrusha/scipy:sha-3d2b798
+        - description:
             "If you want the additional bells and whistles: Python, R, and
             Julia."
           display_name: Datascience environment
           kubespawner_override:
-            image: ghcr.io/shadowkrusha/scipy:sha-3d2b798
+            image: ghcr.io/shadowkrusha/datascience:sha-3d2b798
         - description: The Jupyter Stacks spark image!
           display_name: Spark environment
           kubespawner_override:
