@@ -1,3 +1,4 @@
+---
 neo4j:
   name: my-standalone
   resources:
@@ -8,7 +9,7 @@ neo4j:
   password: "my-initial-password"
 
   # Uncomment to use enterprise edition
-  #edition: "enterprise"
+  # edition: "enterprise"
   acceptLicenseAgreement: "yes"
 
   minimumClusterSize: 2
