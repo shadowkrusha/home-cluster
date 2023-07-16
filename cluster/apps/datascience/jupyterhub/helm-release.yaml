@@ -34,6 +34,9 @@ spec:
         - hosts:
             - *host
           secretName: "jupyter-ir-${SECRET_DOMAIN//./-}-tls"
+    scheduling:
+      userScheduler:
+        enabled: false
     singleuser:
       extraEnv:
         TZ: Australia/Perth
@@ -65,10 +68,10 @@ spec:
           display_name: Spark environment
           kubespawner_override:
             image: jupyter/all-spark-notebook:6cc4a8596a0b
-        # - description: scipy & tensorflow
-        #   display_name: Tensorflow environment
-        #   kubespawner_override:
-        #     image: jupyter/tensorflow-notebook:2023-07-11
+        - description: scipy & tensorflow
+          display_name: Tensorflow environment
+          kubespawner_override:
+            image: jupyter/tensorflow-notebook:2023-07-11
       storage:
         dynamic:
           storageClass: nfs-csi
