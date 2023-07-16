@@ -65,6 +65,10 @@ spec:
           display_name: Spark environment
           kubespawner_override:
             image: jupyter/all-spark-notebook:6cc4a8596a0b
+        - description: scipy + tensorflow
+          display_name: Tensorflow environment
+          kubespawner_override:
+            image: docker pull jupyter/tensorflow-notebook:2023-07-11
       storage:
         dynamic:
           storageClass: nfs-csi
