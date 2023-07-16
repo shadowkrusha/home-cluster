@@ -45,7 +45,7 @@ spec:
         tag: 6cc4a8596a0b
       memory:
         guarantee: 1G
-        limit: 1G
+        limit: 2G
       networkPolicy:
         egressAllowRules:
           privateIPs: true
