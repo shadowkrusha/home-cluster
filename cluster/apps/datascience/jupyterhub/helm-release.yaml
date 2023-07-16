@@ -68,7 +68,7 @@ spec:
         - description: scipy + tensorflow
           display_name: Tensorflow environment
           kubespawner_override:
-            image: docker pull jupyter/tensorflow-notebook:2023-07-11
+            image: jupyter/tensorflow-notebook:2023-07-11
       storage:
         dynamic:
           storageClass: nfs-csi
