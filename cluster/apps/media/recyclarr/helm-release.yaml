@@ -37,22 +37,22 @@ spec:
     service:
       main:
         enabled: false
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: "traefik"
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hosts:
-          - host: "recyclarr.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - "recyclarr.${SECRET_DOMAIN}"
-            secretName: "sonar-${SECRET_DOMAIN//./-}-tls"
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: "traefik"
+    #     annotations:
+    #       cert-manager.io/cluster-issuer: "letsencrypt-production"
+    #       traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    #     hosts:
+    #       - host: "recyclarr.${SECRET_DOMAIN}"
+    #         paths:
+    #           - path: /
+    #             pathType: Prefix
+    #     tls:
+    #       - hosts:
+    #           - "recyclarr.${SECRET_DOMAIN}"
+    #         secretName: "recyclarr-${SECRET_DOMAIN//./-}-tls"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
