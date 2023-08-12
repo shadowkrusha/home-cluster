@@ -11,7 +11,7 @@ sonarr:
       type: series
 
     quality_profiles:
-      - name: WEBDL (1080p)
+      - name: WEBDL Testing
         reset_unmatched_scores: true
 
     custom_formats:
@@ -55,4 +55,4 @@ sonarr:
           - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
           - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         quality_profiles:
-          - name: WEBDL (1080p)
+          - name: WEBDL Testing

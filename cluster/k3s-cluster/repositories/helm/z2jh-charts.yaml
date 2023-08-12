@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://jupyterhub.github.io/helm-chart/
+  url: https://hub.jupyter.org/helm-chart/
   timeout: 2m
