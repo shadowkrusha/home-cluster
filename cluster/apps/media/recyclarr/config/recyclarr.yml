@@ -13,6 +13,19 @@ sonarr:
     quality_profiles:
       - name: WEBDL Testing
         reset_unmatched_scores: true
+        upgrade:
+          allowed: true
+          until_quality: Web 1080p
+          until_score: 10000
+        qualities:
+          - name: Bluray-2160p Remux
+          - name: Bluray-2160p
+          - name: WEB 2160p
+            enabled: false
+          - name: Web 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
 
     custom_formats:
       - trash_ids:
