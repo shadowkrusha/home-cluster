@@ -83,6 +83,10 @@ spec:
           display_name: Datascience Python 3.10
           kubespawner_override:
             image: jupyter/datascience-notebook:python-3.10
+        - description: Datascience Python 3.8
+          display_name: Datascience Python 3.8
+          kubespawner_override:
+            image: jupyter/datascience-notebook:python-3.8
       storage:
         dynamic:
           storageClass: nfs-csi
