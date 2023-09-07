@@ -10,14 +10,14 @@ spec:
     spec:
       # renovate: registryUrl=https://helm.influxdata.com/
       chart: influxdb2
-      version: 4.12.5
+      version: 2.1.1
       sourceRef:
         kind: HelmRepository
         name: influxdata-charts
         namespace: flux-system
   values:
     image:
-      tag: 2.1.1
+      tag: 2.3.0-alpine
       pullPolicy: IfNotPresent
 
     env:
