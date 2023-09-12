@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://strimzi.io/charts/
       chart: strimzi-kafka-operator
-      version: 0.36.1
+      version: 0.37.0
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
