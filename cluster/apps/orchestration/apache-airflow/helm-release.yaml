@@ -41,9 +41,9 @@ spec:
         enabled: true
         hosts:
           - name: "airflow.${SECRET_DOMAIN}"
-        tls:
-          secretName: "airflow-${SECRET_DOMAIN//./-}-tls"
-          enabled: true
+            tls:
+              secretName: "airflow-${SECRET_DOMAIN//./-}-tls"
+              enabled: true
         ingressClassName: traefik
     createUserJob:
       useHelmHooks: false
