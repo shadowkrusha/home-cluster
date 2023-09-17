@@ -63,3 +63,9 @@ spec:
         timeoutSeconds: 100
         failureThreshold: 5
         periodSeconds: 600
+    dags:
+      persistence:
+        enabled: true
+        existingClaim: airflow-dags
+      gitSync:
+        enabled: false
