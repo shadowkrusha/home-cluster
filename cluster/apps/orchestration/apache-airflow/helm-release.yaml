@@ -30,6 +30,8 @@ spec:
   interval: 1m0s
 
   values:
+    webserverSecretKeySecretName: my-webserver-secret
+
     env:
       - name: TZ
         value: Australia/Perth
