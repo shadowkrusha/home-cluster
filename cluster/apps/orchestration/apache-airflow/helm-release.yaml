@@ -31,7 +31,8 @@ spec:
 
   values:
     env:
-      - TZ: Australia/Perth
+      - name: TZ
+        value: Australia/Perth
     ingress:
       web:
         annotations:
@@ -39,14 +40,8 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
         enabled: true
         hosts:
-          - host: &host "airflow.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        ingressClassName: traefik
-        path: /
+          - name: "airflow.${SECRET_DOMAIN}"
         tls:
-          - enabled: true
-            hosts:
-              - *host
-            secretName: "airflow-${SECRET_DOMAIN//./-}-tls"
+          secretName: "airflow-${SECRET_DOMAIN//./-}-tls"
+          enabled: true
+        ingressClassName: traefik
