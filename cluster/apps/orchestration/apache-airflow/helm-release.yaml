@@ -53,10 +53,11 @@ spec:
       applyCustomEnv: false
 
     webserver:
-      resources:
-        limits:
-          cpu: 500m
-          memory: 2Gi
-        requests:
-          cpu: 200m
-          memory: 500Mi
+      service:
+        type: NodePort
+
+      livenessProbe:
+        initialDelaySeconds: 10
+        timeoutSeconds: 100
+        failureThreshold: 5
+        periodSeconds: 600
