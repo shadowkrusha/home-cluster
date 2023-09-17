@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: apache-airflow
+  namespace: orchestration
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://airflow.apache.org
+      chart: airflow
+      version: 1.10.0
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: apache-airflow-charts
+        namespace: flux-system
+
+  install:
+    crds: Create
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  interval: 1m0s
+
+  values:
+    env:
+      - TZ: Australia/Perth
+    ingress:
+      web:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        enabled: true
+        hosts:
+          - host: &host "airflow.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        ingressClassName: traefik
+        path: /
+        tls:
+          - enabled: true
+            hosts:
+              - *host
+            secretName: "airflow-${SECRET_DOMAIN//./-}-tls"
