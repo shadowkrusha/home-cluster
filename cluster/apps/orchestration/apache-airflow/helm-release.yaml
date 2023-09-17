@@ -45,3 +45,9 @@ spec:
           secretName: "airflow-${SECRET_DOMAIN//./-}-tls"
           enabled: true
         ingressClassName: traefik
+    createUserJob:
+      useHelmHooks: false
+      applyCustomEnv: false
+    migrateDatabaseJob:
+      useHelmHooks: false
+      applyCustomEnv: false
