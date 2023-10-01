@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      tag: 2.3.0-alpine
+      tag: 2.7.1-alpine
       pullPolicy: IfNotPresent
 
     env:
