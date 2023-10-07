@@ -26,11 +26,33 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.11@sha256:02904ff44d66c9a549c1dbf7e5bb03f6185272786f871d5718da22ca9a0e600e
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/jellyfin
+              tag: 10.8.11@sha256:02904ff44d66c9a549c1dbf7e5bb03f6185272786f871d5718da22ca9a0e600e
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 8096
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+
     env:
       TZ: "Australia/Perth"
+
     service:
       main:
         type: LoadBalancer
@@ -38,26 +60,12 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            port: &port 8096
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /health
             port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
+
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        className: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -70,6 +78,7 @@ spec:
           - hosts:
               - *host
             secretName: "jellyfin-${SECRET_DOMAIN//./-}-tls"
+
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
