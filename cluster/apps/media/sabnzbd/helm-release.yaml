@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.0.3
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,32 +26,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controllers:
-      main:
-        containers:
-          main:
-            image:
-              repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.1.0@sha256:5f573118a91bed154524bdc7d52425848c2a9a7edda456e4c69a0208f0ce8366
-
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api?mode=version
-                    port: &port 80
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-              startup:
-                enabled: false
+    image:
+      repository: ghcr.io/onedr0p/sabnzbd
+      tag: 4.1.0@sha256:d7eabae44168417a6acbc8f6e8510b0187a3f26d648941b3cf61b4c04a904da2
     env:
       TZ: "Australia/Perth"
-      SABNZBD__PORT: *port
+      SABNZBD__PORT: &port 80
       SABNZBD__HOST_WHITELIST_ENTRIES: >-
         sabnzbd,
         sabnzbd.default,
@@ -64,11 +44,25 @@ spec:
         ports:
           http:
             port: *port
-
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /api?mode=version
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     ingress:
       main:
         enabled: true
-        className: "traefik"
+        ingressClassName: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -77,9 +71,6 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-                service:
-                  name: main
-                  port: http
         tls:
           - hosts:
               - *host
