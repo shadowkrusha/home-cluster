@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.731@sha256:0311cf711b7feeac43dc8813572a45b144a2d7c67618d764e332d225990d97c8
+      tag: 4.0.0.733@sha256:e3bf2d5a6b2a5de144a6ba46389394f62dad03974be6f2c67c263f42ad0197e8
     env:
       TZ: "Australia/Perth"
       SONARR__INSTANCE_NAME: Sonarr
