@@ -26,34 +26,54 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.733@sha256:e3bf2d5a6b2a5de144a6ba46389394f62dad03974be6f2c67c263f42ad0197e8
-    env:
-      TZ: "Australia/Perth"
-      SONARR__INSTANCE_NAME: Sonarr
-      SONARR__PORT: &port 80
-      SONARR__LOG_LEVEL: info
+    controller:
+      replicas: 1
+      strategy: RollingUpdate
+    controllers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/sonarr-develop
+          tag: 4.0.0.733@sha256:e3bf2d5a6b2a5de144a6ba46389394f62dad03974be6f2c67c263f42ad0197e8
+        env:
+          TZ: "Australia/Perth"
+          SONARR__INSTANCE_NAME: Sonarr
+          SONARR__PORT: &port 80
+          SONARR__LOG_LEVEL: info
+        probes:
+          liveness: &probes
+            enabled: false
+            custom: true
+            spec:
+              httpGet:
+                path: /ping
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
+          startup:
+            enabled: false
+        resources:
+          requests:
+            memory: 250Mi
+            cpu: 500m
+          limits:
+            memory: 1500Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
+
     service:
       main:
         ports:
           http:
             port: *port
-    probes:
-      liveness: &probes
-        enabled: false
-        custom: true
-        spec:
-          httpGet:
-            path: /ping
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
+
     ingress:
       main:
         enabled: true
@@ -62,26 +82,15 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "sonarr.${SECRET_DOMAIN}"
+          - host: &host "sonarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "sonarr.${SECRET_DOMAIN}"
+              - *host
             secretName: "sonar-${SECRET_DOMAIN//./-}-tls"
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
-    # volumeClaimTemplates:
-    #   - name: config
-    #     mountPath: /config
-    #     accessMode: ReadWriteOnce
-    #     size: 10Gi
-    #     storageClass: nfs-csi
+
     persistence:
       config:
         enabled: true
@@ -93,9 +102,3 @@ spec:
         server: k3s-worker03.shadowkrusha.net
         path: /srv/nfs4/media
         mountPath: /media
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 500m
-      limits:
-        memory: 1500Mi
