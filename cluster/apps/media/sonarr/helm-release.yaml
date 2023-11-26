@@ -31,35 +31,48 @@ spec:
       strategy: RollingUpdate
     controllers:
       main:
-        image:
-          repository: ghcr.io/onedr0p/sonarr-develop
-          tag: 4.0.0.733@sha256:e3bf2d5a6b2a5de144a6ba46389394f62dad03974be6f2c67c263f42ad0197e8
-        env:
-          TZ: "Australia/Perth"
-          SONARR__INSTANCE_NAME: Sonarr
-          SONARR__PORT: &port 80
-          SONARR__LOG_LEVEL: info
-        probes:
-          liveness: &probes
-            enabled: false
-            custom: true
-            spec:
-              httpGet:
-                path: /ping
-                port: *port
-              initialDelaySeconds: 0
-              periodSeconds: 10
-              timeoutSeconds: 1
-              failureThreshold: 3
-          readiness: *probes
-          startup:
-            enabled: false
-        resources:
-          requests:
-            memory: 250Mi
-            cpu: 500m
-          limits:
-            memory: 1500Mi
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 15
+              pullPolicy: IfNotPresent
+            envFrom: &envFrom
+              - secretRef:
+                  name: sonarr-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.0.733@sha256:e3bf2d5a6b2a5de144a6ba46389394f62dad03974be6f2c67c263f42ad0197e8
+            env:
+              TZ: "Australia/Perth"
+              SONARR__INSTANCE_NAME: Sonarr
+              SONARR__PORT: &port 80
+              SONARR__LOG_LEVEL: info
+            probes:
+              liveness: &probes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 500m
+              limits:
+                memory: 1500Mi
         pod:
           securityContext:
             runAsUser: 568
