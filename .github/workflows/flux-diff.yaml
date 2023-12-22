@@ -26,8 +26,9 @@ jobs:
       #     app_id: "${{ secrets.BOT_APP_ID }}"
       #     private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
-      - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@main
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@v2
+      - uses: allenporter/flux-local/action/diff@2.0.0
         id: diff
         with:
           path: ${{ matrix.path }}
