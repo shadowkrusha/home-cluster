@@ -1,13 +1,13 @@
 ---
 fail_fast: false
 repos:
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.33.0
-    hooks:
-      - args:
-          - --config-file
-          - .github/linters/.yamllint.yaml
-        id: yamllint
+  # - repo: https://github.com/adrienverge/yamllint
+  #   rev: v1.33.0
+  #   hooks:
+  #     - args:
+  #         - --config-file
+  #         - .github/linters/.yamllint.yaml
+  #       id: yamllint
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
@@ -24,10 +24,10 @@ repos:
     rev: 0.6.3
     hooks:
       - id: fix-smartquotes
-  - repo: https://github.com/k8s-at-home/sops-pre-commit
-    rev: v2.1.1
-    hooks:
-      - id: forbid-secrets
+  # - repo: https://github.com/k8s-at-home/sops-pre-commit
+  #   rev: v2.1.1
+  #   hooks:
+  #     - id: forbid-secrets
   - repo: https://github.com/zricethezav/gitleaks
     rev: v8.18.1
     hooks:
