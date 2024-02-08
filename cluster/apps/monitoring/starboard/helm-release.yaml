@@ -9,7 +9,7 @@ spec:
     spec:
       # renovate: registryUrl=https://aquasecurity.github.io/helm-charts/
       chart: trivy-operator
-      version: 0.20.4
+      version: 0.20.6
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
