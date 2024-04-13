@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: linuxserver/nzbhydra2
-      tag: 6.0.0@sha256:e7152b0a19954c8310073e8144bce8f357144eba91319f3d768b6ee3a0fc14a1
+      tag: 6.0.0@sha256:453d7559a5368eca001d0dbe998eccd0172ca2a58a9f7929c480aac6cec8cfe0
     probes:
       liveness:
         spec:
