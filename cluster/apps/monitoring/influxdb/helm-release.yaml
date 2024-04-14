@@ -31,10 +31,13 @@ spec:
 
     ingress:
       enabled: true
-      ingressClassName: "traefik"
+      className: "traefik"
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hostname: "influxdb.${SECRET_DOMAIN}"
       tls: true
       secretName: "influxdb-${SECRET_DOMAIN//./-}-tls"
+
+    livenessProbe:
+      initialDelaySeconds: 120
