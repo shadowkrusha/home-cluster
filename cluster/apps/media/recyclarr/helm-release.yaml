@@ -44,10 +44,10 @@ spec:
               - secretRef:
                   name: recyclarr-secrets
             args: ["sync"]
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            # securityContext:
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: true
+            #   capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
