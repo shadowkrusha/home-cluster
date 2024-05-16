@@ -43,6 +43,7 @@ spec:
             envFrom:
               - secretRef:
                   name: recyclarr-secrets
+            args: ["sync"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
