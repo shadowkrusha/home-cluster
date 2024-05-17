@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -9,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,9 +28,9 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      sabnzbd:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/sabnzbd
               tag: 4.3.1@sha256:0a1e831d9208a6df6cf2bfc0abe90cdfa67a35e0d7951e52fbf47b19240e8669
@@ -64,24 +65,24 @@ spec:
                 cpu: 500m
               limits:
                 memory: 2Gi
-
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+        seccompProfile: { type: RuntimeDefault }
 
     service:
-      main:
+      app:
+        controller: sabnzbd
         ports:
           http:
             port: *port
-
     ingress:
-      main:
-        enabled: true
+      app:
         className: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
@@ -91,8 +92,22 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
+        # ingress:
+        #   main:
+        #     enabled: true
+        #     className: "traefik"
+        #     annotations:
+        #       cert-manager.io/cluster-issuer: "letsencrypt-production"
+        #       traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        #     hosts:
+        #       - host: &host "sabnzbd.${SECRET_DOMAIN}"
+        #         paths:
+        #           - path: /
+        #             service:
+        #               name: main
+        #               port: http
         tls:
           - hosts:
               - *host
@@ -102,13 +117,15 @@ spec:
       config:
         enabled: true
         existingClaim: sabnzbd-config
-        mountPath: /config
+        globalMounts:
+          - path: /config
       media:
         enabled: true
         type: nfs
         server: k3s-worker03.shadowkrusha.net
         path: /srv/nfs4/media
-        mountPath: /media
+        globalMounts:
+          - path: /media
       incomplete:
         enabled: true
         type: emptyDir
