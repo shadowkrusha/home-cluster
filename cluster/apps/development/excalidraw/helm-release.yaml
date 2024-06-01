@@ -37,7 +37,7 @@ spec:
             image:
               # https://github.com/excalidraw/excalidraw/pull/6143
               repository: shadowkrusha/excalidraw
-              tag: c9c79646
+              tag: 63dee03e
             env:
               TZ: "Australia/Perth"
             probes:
