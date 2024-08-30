@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.3.3@sha256:fd8a9b46efe24de1249317592f97b6a8be1b5d621dde5d8a57121bf4dcadf3b8
+              tag: 4.3.3@sha256:d227dba56a033676e2525f56301d600890ba591a33b63b777decb9949a8280de
             env:
               TZ: "Australia/Perth"
               SABNZBD__PORT: &port 80
