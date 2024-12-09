@@ -6,5 +6,5 @@ resources:
   - grafana
   - influxdb
   - influxdb2
-  - loki
+  # - loki
   # - starboard
