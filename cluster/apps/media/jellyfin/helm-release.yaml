@@ -44,7 +44,7 @@ spec:
                   httpGet:
                     path: /health
                     port: &port 8096
-                  initialDelaySeconds: 0
+                  initialDelaySeconds: 30
                   periodSeconds: 10
                   timeoutSeconds: 30
                   failureThreshold: 3
