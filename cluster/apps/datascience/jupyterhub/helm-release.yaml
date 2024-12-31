@@ -69,27 +69,27 @@ spec:
         - description: The Jupyter Stacks spark image!
           display_name: Spark environment
           kubespawner_override:
-            image: jupyter/all-spark-notebook:6cc4a8596a0b
+            image: quay.io/jupyter/all-spark-notebook:python-3.12
         - description: scipy & tensorflow
           display_name: Tensorflow environment
           kubespawner_override:
-            image: jupyter/tensorflow-notebook:2023-07-11
+            image: quay.io/jupyter/tensorflow-notebook:python-3.12
         - description: SingleUser Image 4
           display_name: Jupyterhub Single User Image
           kubespawner_override:
             image: jupyterhub/singleuser:5.2.1
-        - description: Z2JH Base image
-          display_name: Jupyterhub Base Image
-          kubespawner_override:
-            image: jupyterhub/k8s-singleuser-sample:3.0.1-0.dev.git.6287.hbfb05cd6
+        # - description: Z2JH Base image
+        #   display_name: Jupyterhub Base Image
+        #   kubespawner_override:
+        #     image: jupyterhub/k8s-singleuser-sample:3.0.1-0.dev.git.6287.hbfb05cd6
         - description: Datascience Python 3.10
           display_name: Datascience Python 3.10
           kubespawner_override:
-            image: jupyter/datascience-notebook:python-3.10
+            image: quay.io/jupyter/datascience-notebook:python-3.10
         - description: Datascience Python 3.12
           display_name: Datascience Python 3.12
           kubespawner_override:
-            image: jupyter/datascience-notebook:python-3.12
+            image: quay.io/jupyter/datascience-notebook:python-3.12
         # - description: Datascience Python 3.8
         #   display_name: Datascience Python 3.8
         #   kubespawner_override:
