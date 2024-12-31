@@ -35,8 +35,11 @@ spec:
             - *host
           secretName: "jupyter-ir-${SECRET_DOMAIN//./-}-tls"
     scheduling:
+      userPods:
+        nodeAffinity:
+          matchNodePurpose: require
       userScheduler:
-        enabled: false
+        enabled: true
     singleuser:
       extraEnv:
         TZ: Australia/Perth
@@ -83,10 +86,14 @@ spec:
           display_name: Datascience Python 3.10
           kubespawner_override:
             image: jupyter/datascience-notebook:python-3.10
-        - description: Datascience Python 3.8
-          display_name: Datascience Python 3.8
+        - description: Datascience Python 3.12
+          display_name: Datascience Python 3.12
           kubespawner_override:
-            image: jupyter/datascience-notebook:python-3.8
+            image: jupyter/datascience-notebook:python-3.12
+        # - description: Datascience Python 3.8
+        #   display_name: Datascience Python 3.8
+        #   kubespawner_override:
+        #     image: jupyter/datascience-notebook:python-3.8
       storage:
         dynamic:
           storageClass: nfs-csi
