@@ -82,10 +82,10 @@ spec:
         #   display_name: Jupyterhub Base Image
         #   kubespawner_override:
         #     image: jupyterhub/k8s-singleuser-sample:3.0.1-0.dev.git.6287.hbfb05cd6
-        - description: Datascience Python 3.10
-          display_name: Datascience Python 3.10
-          kubespawner_override:
-            image: quay.io/jupyter/datascience-notebook:python-3.10
+        #        - description: Datascience Python 3.10
+        #  display_name: Datascience Python 3.10
+        #  kubespawner_override:
+        #    image: quay.io/jupyter/datascience-notebook:python-3.10
         - description: Datascience Python 3.12
           display_name: Datascience Python 3.12
           kubespawner_override:
