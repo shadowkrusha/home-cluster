@@ -1,0 +1,131 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: radarr
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      radarr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/radarr
+              tag: 5.17.2.9580@sha256:e3fd9eed19596d8e443ab13a725655101be3c9e2df388f1e81d2f07b56100dfb
+            env:
+              TZ: "Australia/Perth"
+              RADARR__APP__INSTANCENAME: Radarr
+              RADARR__APP__THEME: dark
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
+              RADARR__LOG__LEVEL: info
+              RADARR__SERVER__PORT: &port 80
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 30
+                  failureThreshold: 5
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    service:
+      app:
+        controller: radarr
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        className: "traefik"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        hosts:
+          - host: &host "radarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        # ingress:
+        #   main:
+        #     enabled: true
+        #     className: "traefik"
+        #     annotations:
+        #       cert-manager.io/cluster-issuer: "letsencrypt-production"
+        #       traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        #     hosts:
+        #       - host: &host "radarr.${SECRET_DOMAIN}"
+        #         paths:
+        #           - path: /
+        #             service:
+        #               name: main
+        #               port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "sonar-${SECRET_DOMAIN//./-}-tls"
+
+    persistence:
+      config:
+        existingClaim: radarr
+      config-cache:
+        existingClaim: radarr-cache
+        globalMounts:
+          - path: /config/MediaCover
+      tmp:
+        type: emptyDir
+      media:
+        enabled: true
+        type: nfs
+        server: k3s-worker03.shadowkrusha.net
+        path: /srv/nfs4/media
+        globalMounts:
+          - path: /media
