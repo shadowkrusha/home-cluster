@@ -111,7 +111,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: "sonar-${SECRET_DOMAIN//./-}-tls"
+            secretName: "radarr-${SECRET_DOMAIN//./-}-tls"
 
     persistence:
       config:
