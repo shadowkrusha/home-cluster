@@ -29,3 +29,5 @@ spec:
     - name: cert-manager
       namespace: cert-manager
   values:
+    traekfik: true
+    gatewayAPI: true
