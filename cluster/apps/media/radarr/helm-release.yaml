@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/radarr
-              tag: 5.18.4.9674@sha256:4cf5ea6f4c50f1dd46b59f2cfda70421022558ee0ae2c98e0b18a0ccb6e39138
+              tag: 5.19.3.9730@sha256:e652d63e0bc56a91af1fea20e0e764c099fa189f2ea78603ac01e2deae8de8b3
             env:
               TZ: "Australia/Perth"
               RADARR__APP__INSTANCENAME: Radarr
