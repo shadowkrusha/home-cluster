@@ -5,5 +5,6 @@ resources:
   - ./namespace.yaml
   - ./adguard
   - ./calico
+  - ./cloudflare-dns
   - ./metallb/ks.yaml
   - ./traefik/ks.yaml
