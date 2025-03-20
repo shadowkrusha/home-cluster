@@ -25,5 +25,6 @@ resources:
   - neo4j-charts.yaml
   - strimzi-charts.yaml
   - traefik-charts.yaml
+  - yael-tramier-charts.yaml
   - ytdl-material-charts.yaml
   - z2jh-charts.yaml

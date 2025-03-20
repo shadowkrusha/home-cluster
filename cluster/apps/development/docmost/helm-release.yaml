@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: docmost
+  namespace: development
+spec:
+  chart:
+    spec:
+      chart: docmost
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: yael-tramier-charts
+        namespace: flux-system
+      version: 0.4.2
+  install:
+    crds: Create
+  interval: 1m0s
+  upgrade:
+    crds: CreateReplace
+  values:
+    ingress:
+      main:
+        className: traefik
+        enabled: true
+        hosts:
+        - host: docmost.${SECRET_DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - docmost.${SECRET_DOMAIN}
+          secretName: docmost-${SECRET_DOMAIN//./-}-tls
