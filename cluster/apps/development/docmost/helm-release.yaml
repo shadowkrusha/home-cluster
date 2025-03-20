@@ -36,3 +36,9 @@ spec:
           - hosts:
               - docmost.${SECRET_DOMAIN}
             secretName: docmost-${SECRET_DOMAIN//./-}-tls
+
+    docmost:
+      mail:
+        enabled: false
+        fromAddress: "iain.riley@gmail.com"
+        fromName: "Iain"
