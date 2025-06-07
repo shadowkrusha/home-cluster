@@ -44,7 +44,7 @@ spec:
                   fieldRef:
                     fieldPath: metadata.namespace
         serviceAccount:
-          identifier: ssystem-upgrade-controller
+          identifier: system-upgrade-controller
 
           # pod:
           #   securityContext:
