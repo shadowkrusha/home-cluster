@@ -21,7 +21,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      system-upgrade:
+      system-upgrade-controller:
         strategy: RollingUpdate
         containers:
           app:
@@ -43,6 +43,8 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.namespace
+        serviceAccount:
+          identifier: ssystem-upgrade-controller
 
           # pod:
           #   securityContext:
@@ -92,8 +94,18 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
 
+    rbac:
+      bindings:
+        system-upgrade-controller:
+          type: ClusterRoleBinding
+          roleRef:
+            kind: ClusterRole
+            name: cluster-admin
+          subjects:
+            - identifier: system-upgrade-controller
+
     serviceAccount:
-      system-upgrade: {}
+      system-upgrade-controller: {}
 
     persistence:
       tmp:
