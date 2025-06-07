@@ -6,16 +6,10 @@ metadata:
   namespace: media
 spec:
   interval: 5m
-  chart:
-    spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: readarr
-      version: 6.4.2
-      sourceRef:
-        kind: HelmRepository
-        name: k8s-at-home-charts
-        namespace: flux-system
-      interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   values:
     image:
       repository: ghcr.io/k8s-at-home/readarr-nightly
