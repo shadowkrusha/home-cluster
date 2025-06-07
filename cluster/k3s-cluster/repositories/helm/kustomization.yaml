@@ -5,7 +5,7 @@ resources:
   - apache-airflow-charts.yaml
   - aquasecurity-charts.yaml
   - bitnami-charts.yaml
-  - bjw-s.yaml
+  # - bjw-s.yaml
   - calico.yaml
   - community-charts.yaml
   - csi-driver-nfs-charts.yaml
