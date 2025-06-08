@@ -34,6 +34,6 @@ repos:
             tmpl\/.*.sops\.ya?ml
             )$
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.27.0
+    rev: v8.27.1
     hooks:
       - id: gitleaks
