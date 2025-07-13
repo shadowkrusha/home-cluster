@@ -9,7 +9,7 @@ spec:
     spec:
       # renovate: registryUrl=https://airflow.apache.org
       chart: airflow
-      version: 1.16.0
+      version: 1.18.0
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
