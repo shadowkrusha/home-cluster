@@ -5,6 +5,7 @@ resources:
   - ./namespace.yaml
   - jellyfin
   - nzbhydra2
+  - qbittorrent
   # - calibre-web
   # - readarr
   - radarr
