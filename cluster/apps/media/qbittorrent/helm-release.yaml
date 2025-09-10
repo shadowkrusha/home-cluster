@@ -108,7 +108,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: qbittorrent
 
       config-file:
         type: configMap
