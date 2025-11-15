@@ -64,9 +64,9 @@ kind: Kustomization
 metadata:
   name: cluster-apps-traefik-crds
   namespace: flux-system
-spec:
-  dependsOn:
-    - name: cluster-apps-traefik-config
+  # spec:
+  #   dependsOn:
+  #     - name: cluster-apps-traefik-config
   path: ./cluster/apps/networking/traefik/crds
   prune: true
   sourceRef:
