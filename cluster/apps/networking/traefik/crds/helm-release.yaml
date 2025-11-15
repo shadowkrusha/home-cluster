@@ -25,9 +25,9 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
-  dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
+  # dependsOn:
+  #   - name: cert-manager
+  #     namespace: cert-manager
   values:
     traefik: true
     gatewayAPI: true
