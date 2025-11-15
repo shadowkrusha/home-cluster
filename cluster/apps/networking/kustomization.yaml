@@ -8,3 +8,4 @@ resources:
   - ./cloudflare-dns/ks.yaml
   - ./metallb/ks.yaml
   - ./traefik/ks.yaml
+  - ./traefik-crds
