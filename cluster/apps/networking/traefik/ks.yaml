@@ -64,15 +64,11 @@ kind: Kustomization
 metadata:
   name: cluster-apps-traefik-crds
   namespace: flux-system
-  # spec:
-  #   dependsOn:
-  #     - name: cluster-apps-traefik-config
   path: ./cluster/apps/networking/traefik/crds
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
