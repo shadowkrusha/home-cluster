@@ -30,6 +30,6 @@ spec:
   #     namespace: cert-manager
   values:
     traefik: true
-    gatewayAPI: true
+    gatewayAPI: false
     deleteOnUninstall: false
     hub: false
