@@ -77,7 +77,7 @@ spec:
         - description: SingleUser Image 4
           display_name: Jupyterhub Single User Image
           kubespawner_override:
-            image: jupyterhub/singleuser:5.4.2
+            image: jupyterhub/singleuser:5.4.3
         # - description: Z2JH Base image
         #   display_name: Jupyterhub Base Image
         #   kubespawner_override:
