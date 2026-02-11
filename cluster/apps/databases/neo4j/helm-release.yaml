@@ -23,7 +23,7 @@ spec:
       password: my-initial-password
       resources:
         cpu: "0.5"
-        memory: 2Gi
+        memory: 4Gi
     volumes:
       data:
         defaultStorageClass:
