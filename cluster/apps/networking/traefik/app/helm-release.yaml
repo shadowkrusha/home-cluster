@@ -71,15 +71,17 @@ spec:
           default: false
           internal: true
       web:
-        redirections:
-          entryPoint:
-            to: websecure
-            scheme: https
-            permanent: true
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
       websecure:
-        tls:
-          enabled: true
-          options: "default"
+        http:
+          tls:
+            enabled: true
+            options: "default"
       metrics:
         port: 8082
         expose:
@@ -91,8 +93,8 @@ spec:
         minVersion: VersionTLS12
         maxVersion: VersionTLS13
         sniStrict: true
-    pilot:
-      enabled: false
+    # pilot:
+    #   enabled: false
     # Disable Plugins
     # experimental:
     #   plugins:
