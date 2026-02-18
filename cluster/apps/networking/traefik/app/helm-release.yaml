@@ -55,12 +55,12 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
-    globalArguments:
-      - "--api.insecure=true"
-      - "--serverstransport.insecureskipverify=true"
-      - "--providers.kubernetesingress.ingressclass=traefik"
-      - "--metrics.prometheus=true"
-      - "--metrics.prometheus.entryPoint=metrics"
+    # globalArguments:
+    #   - "--api.insecure=true"
+    #   - "--serverstransport.insecureskipverify=true"
+    #   - "--providers.kubernetesingress.ingressclass=traefik"
+    #   - "--metrics.prometheus=true"
+    #   - "--metrics.prometheus.entryPoint=metrics"
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.ip=${SVC_TRAEFIK_ADDR}"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
