@@ -14,3 +14,18 @@ mountOptions:
   - nconnect=8
   - hard
   - noatime
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-ugreen
+provisioner: nfs.csi.k8s.io # Utilizing your active csi-driver-nfs
+volumeBindingMode: Immediate
+parameters:
+  server: "nas.${SECRET_DOMAIN}"
+  share: /volume1/k8s-nfs
+mountOptions:
+  - nfsvers=4.1 # Adjust if firmware restrictions enforce nfsvers=3
+  - noatime # Performance optimization
+  - nconnect=16 # Optimizes TCP workload throughput for your cluster
