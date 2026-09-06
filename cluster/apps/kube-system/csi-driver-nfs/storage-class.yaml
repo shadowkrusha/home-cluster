@@ -26,6 +26,6 @@ parameters:
   server: "nas.${SECRET_DOMAIN}"
   share: /volume1/k8s-nfs
 mountOptions:
-  - nfsvers=4.1 # Adjust if firmware restrictions enforce nfsvers=3
+  - nfsvers=3 # Adjust if firmware restrictions enforce nfsvers=3
   - noatime # Performance optimization
   - nconnect=16 # Optimizes TCP workload throughput for your cluster
