@@ -53,3 +53,17 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: nfs-ugreen
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qbittorrent-downloads
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: nfs-ugreen

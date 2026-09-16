@@ -123,10 +123,11 @@ spec:
         type: emptyDir
 
       media:
-        enabled: true
-        type: nfs
-        server: k3s-worker03.shadowkrusha.net
-        path: /srv/nfs4/media
-        globalMounts:
-          - path: /media/Downloads/qbittorrent
-            subPath: Downloads/qbittorrent
+        existingClaim: qbittorrent-downloads
+        #        enabled: true
+        #        type: nfs
+        #        server: k3s-worker03.shadowkrusha.net
+        #        path: /srv/nfs4/media
+        #        globalMounts:
+        #          - path: /media/Downloads/qbittorrent
+        #            subPath: Downloads/qbittorrent
