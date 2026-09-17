@@ -9,3 +9,4 @@ resources:
   - ./metallb/ks.yaml
   - ./traefik/ks.yaml
   - ./traefik-crds
+  - ./envoy-gateway/ks.yaml
