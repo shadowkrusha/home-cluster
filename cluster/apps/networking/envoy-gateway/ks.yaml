@@ -1,17 +1,31 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# cluster/.../envoy-gateway/ks.yaml (or your root apps/networking ks.yaml)
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envoy-gateway
+  name: cluster-apps-envoy-gateway
   namespace: flux-system
 spec:
-  interval: 1h
-  path: ./cluster/apps/networking/envoy-gateway/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
   targetNamespace: networking
-  wait: false
+  path: ./cluster/apps/network/envoy-gateway/app
+  prune: true
+  wait: true # Ensures the HelmRelease and CRDs are applied and ready
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-envoy-gateway-config
+  namespace: flux-system
+spec:
+  targetNamespace: networking
+  path: ./cluster/apps/network/envoy-gateway/config # Put envoy.yaml + a kustomization.yaml here
+  prune: true
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  dependsOn:
+    - name: cluster-apps-envoy-gateway
