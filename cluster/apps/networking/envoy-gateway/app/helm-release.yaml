@@ -9,6 +9,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: envoy-gateway
+    namespace: flux-system
   interval: 1h
   values:
     global:
