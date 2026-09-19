@@ -6,7 +6,7 @@ metadata:
   name: cloudflare-tunnel
 spec:
   endpoints:
-    - dnsName: external.shadowkkrusha.net
+    - dnsName: external.shadowkrusha.net
       recordType: CNAME
       targets:
         - ${CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com
