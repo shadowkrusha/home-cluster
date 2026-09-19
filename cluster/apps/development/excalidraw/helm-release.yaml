@@ -59,35 +59,35 @@ spec:
           http:
             port: *port
 
-    # route:
-    #   app:
-    #     hostnames: ["draw.${SECRET_DOMAIN}"]
-    #     parentRefs:
-    #       - name: internal
-    #         namespace: kube-system
-    #         sectionName: https
-    #     rules:
-    #       - backendRefs:
-    #           - identifier: app
-    #             port: *port
-
-    ingress:
+    route:
       app:
-        className: "traefik"
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hosts:
-          - host: &host "draw.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "draw-${SECRET_DOMAIN//./-}-tls"
+        hostnames: ["draw.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    # ingress:
+    #   app:
+    #     className: "traefik"
+    #     annotations:
+    #       cert-manager.io/cluster-issuer: "letsencrypt-production"
+    #       traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    #     hosts:
+    #       - host: &host "draw.${SECRET_DOMAIN}"
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
+    #     tls:
+    #       - hosts:
+    #           - *host
+    #         secretName: "draw-${SECRET_DOMAIN//./-}-tls"
 
     topologySpreadConstraints:
       - maxSkew: 1
