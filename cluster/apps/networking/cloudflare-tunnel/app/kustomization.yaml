@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./dnsendpoint.yaml
+  - ./helm-release.yaml
+  # - ./grafanadashboard.yaml
+  # - ./helm-release.yaml
+  # - ./o11y.yaml
+  - ./ocirepository.yaml
+  - ./secrets.sops.yaml

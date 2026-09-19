@@ -6,7 +6,8 @@ resources:
   - ./adguard
   - ./calico
   - ./cloudflare-dns/ks.yaml
+  - ./cloudflare-tunnel/ks.yaml
+  - ./envoy-gateway/ks.yaml
   - ./metallb/ks.yaml
   - ./traefik/ks.yaml
   - ./traefik-crds
-  - ./envoy-gateway/ks.yaml
