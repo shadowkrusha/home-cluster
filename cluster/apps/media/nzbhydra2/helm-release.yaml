@@ -30,6 +30,7 @@ spec:
             path: /actuator/health/ping
       startup:
         spec:
+          failureThreshold: 50
           httpGet:
             path: /actuator/health/ping
     env:
