@@ -22,6 +22,7 @@ spec:
   values:
     controllers:
       system-upgrade-controller:
+        automountServiceAccountToken: true
         strategy: RollingUpdate
         containers:
           app:
@@ -45,7 +46,6 @@ spec:
                     fieldPath: metadata.namespace
         serviceAccount:
           identifier: system-upgrade-controller
-        automountServiceAccountToken: true
 
           # pod:
           #   securityContext:
