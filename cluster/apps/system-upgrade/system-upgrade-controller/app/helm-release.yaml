@@ -22,8 +22,11 @@ spec:
   values:
     controllers:
       system-upgrade-controller:
-        automountServiceAccountToken: true
         strategy: RollingUpdate
+
+        pod:
+          automountServiceAccountToken: true
+
         containers:
           app:
             image:
